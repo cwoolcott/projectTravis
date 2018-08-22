@@ -25,11 +25,18 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: true };
+var syncOptions = { force: false };
 
 // If running a test,  set syncOptions.force to true
 // clearing the `testdb`
-if (process.env.NODE_ENV === "test") {
+
+var environment =
+  process.env.NODE_ENV === "undefined" ? "development" : process.env.NODE_ENV;
+
+var environment =
+  process.env.NODE_ENV !== "undefined" ? "development" : process.env.NODE_ENV;
+
+if (environment === "test") {
   syncOptions.force = true;
 }
 
@@ -37,7 +44,9 @@ if (process.env.NODE_ENV === "test") {
 db.sequelize.sync(syncOptions).then(function() {
   app.listen(PORT, function() {
     console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      "==> 🌎 " +
+        environment +
+        " Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
       PORT
     );
