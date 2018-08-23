@@ -25,16 +25,13 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: false };
+var syncOptions = { force: true };
 
 // If running a test,  set syncOptions.force to true
 // clearing the `testdb`
 
 var environment =
   process.env.NODE_ENV === "undefined" ? "development" : process.env.NODE_ENV;
-
-var environment =
-  process.env.NODE_ENV !== "undefined" ? "development" : process.env.NODE_ENV;
 
 if (environment === "test") {
   syncOptions.force = true;

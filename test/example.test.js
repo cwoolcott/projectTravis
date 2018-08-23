@@ -51,6 +51,7 @@ describe("GET /api/examples", function() {
             text: "Second Example",
             description: "Second Description"
           });
+
         // The `done` function is used to end any asynchronous tests
         done();
       });
